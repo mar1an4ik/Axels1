@@ -1,0 +1,8 @@
+.MainPage{
+padding-top: 15%;
+background-image: url("./../images/main.jpg");
+height: 100vh;
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+}

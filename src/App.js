@@ -1,10 +1,14 @@
 import './App.css';
+import MainPage from './components/MainPage';
+import Information from './components/Information'
 
 function App() {
+
+
   return (
     <div className="App">
-     <h1>First</h1>
-     <h2>Hi</h2>
+<MainPage/>
+<Information/>
      
     </div>
   );
