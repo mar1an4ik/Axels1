@@ -1,22 +1,30 @@
 export const setEmpSagaType = `setEmpSaga`;
 export const setEmp = `setEmp`;
 
-let initialState = {
+const initialState = {
     vacancy: "",
     employersArray: [],
     userName: "",
+    error: "",
 };
 
 const EmpReducer = (state = initialState, action) => {
     switch (action.type) {
-         case "setEmp": {
-            let statecopy = {
+        case "setEmp": {
+            const statecopy = {
                 ...state
             };
+
             statecopy.employersArray = [...state.employersArray]
             statecopy.vacancy = action.employersArray[0];
             statecopy.userName = action.userName
-            statecopy.employersArray = action.employersArray[1]["direct-subordinates"];
+            if (action.employersArray[1] && action.employersArray[1]["direct-subordinates"]) {
+                statecopy.employersArray = action.employersArray[1]["direct-subordinates"];
+                statecopy.error = action.employersArray[1]["error"];
+            } else {
+                statecopy.error = "";
+                statecopy.employersArray = [""];
+            }
             return statecopy;
         }
         default: {
@@ -25,18 +33,21 @@ const EmpReducer = (state = initialState, action) => {
     }
 };
 
-export const setEmpAC = (employersArray, userName) => {
+export const setEmpAC = (employersArray, userName, error) => {
     return {
         type: setEmp,
         employersArray: employersArray,
         userName: userName,
+        error: error,
+
     }
 }
 
-export const setEmpSaga = (userName) => {
+export const setEmpSaga = (userName, error) => {
     return {
         type: setEmpSagaType,
-        userName: userName
+        userName: userName,
+        error: error,
     }
 }
 

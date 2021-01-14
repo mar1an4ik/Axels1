@@ -1,17 +1,16 @@
-import {
-    applyMiddleware,
-    combineReducers,
-    createStore
-} from "redux";
-import EmpReducer from './EmpReducer'
-import createSagaMiddleware from "redux-saga"
-import {getEmpwatcher} from './saga/EmpSaga'
+import { applyMiddleware, combineReducers, createStore } from "redux";
+import createSagaMiddleware from "redux-saga";
 
-let reducers = combineReducers({
-    empTree: EmpReducer,
-});
-const sagaMiddleware = createSagaMiddleware();
-const store = createStore(reducers, applyMiddleware(sagaMiddleware));
-sagaMiddleware.run(getEmpwatcher)
+import { EmpReducer ,UsersReducer } from './reducers'
 
-export default store;
+import { rootWatcher } from "./saga/index";
+
+    let reducers = combineReducers({
+        empTree: EmpReducer,
+        usersTree: UsersReducer,
+    });
+    const sagaMiddleware = createSagaMiddleware();
+    const store = createStore(reducers, applyMiddleware(sagaMiddleware));
+    sagaMiddleware.run(rootWatcher)
+
+    export default store;

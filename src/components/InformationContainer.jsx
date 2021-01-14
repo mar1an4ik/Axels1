@@ -1,65 +1,75 @@
-import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
-import Information from "./Information";
-import profileLogo from './../images/profile.png'
-import {Card,Col,Row} from 'react-bootstrap';
-import {useEffect, useState} from "react"
-import {useDispatch} from 'react-redux'
-import {setEmpSaga} from './../redux/EmpReducer'
+import { Card, Col } from "react-bootstrap";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
-const InformationContainer = (props) => {
-    let userName = props.match.params.empName;
-    const [direct, setDirect] = useState([])
-    const [noDirect, setNoDirect] = useState([])
+import { Information } from "./../components";
+
+import { setEmpSaga } from "../redux/reducers/EmpReducer";
+import profileLogo from "./../images/profile.png"
+
+
+const InformationContainer = ({match,employersArray,vacancy}) => {
+    const userName = match.params.empName;
+    const [direct, setDirect] = useState([]);
+    const [noDirect, setNoDirect] = useState([]);
     const dispatch = useDispatch();
-
-    let initJSX=(employersArray)=>{
-      let newArray=employersArray.map((person) => {
-        return <Col>
-        <Card>
-            <img src={profileLogo} alt={"profileLogo"}/>
-            <Card.Body>
+    const initJSX = (employersArray) => (
+      employersArray.map((person) => {
+        return (
+          <Col>
+            <Card style={{ width: "200px" }}>
+              <img src={profileLogo} width={"200px"} alt={"profileLogo"} />
+              <Card.Body>
                 <Card.Title>{person}</Card.Title>
                 <Card.Text>
-                    Hello,my name is {person} and I work on {userName}
+                  Hello,my name is {person} and I work on {userName}
                 </Card.Text>
-            </Card.Body>
-        </Card>
-        </Col>
-    })
+              </Card.Body>
+            </Card>
+          </Col>
+        );
+      })
+    );
 
-      return newArray;
-    }
-
-    let initiaLizeEmployers=()=>{
-      if (props.employersArray.length >= 1) {
-        let directEmployers = initJSX(props.employersArray);
-        let noDirectEmployers =initJSX(["Anton", "Vitalya", "Vitalya", "Vitalya", "Vitalya", "Vitalya", "Vitalya", "Vitalya", "Vitalya"]); 
+  const initiaLizeEmployers = () => {
+    if (employersArray.length >= 1) {
+      if (employersArray[0] != "") {
+        const directEmployers = initJSX(employersArray);
         setDirect(directEmployers);
-        setNoDirect(noDirectEmployers)
-      } else {
-        dispatch(setEmpSaga(props.match.params.empName));
-        }
-    }
-
-    useEffect(() => {
-       initiaLizeEmployers();
-    }, [props.employersArray]);
-
-    return (<div>
-        <Information directEmployers={direct}
-                     noDirectEmployers={noDirect}
-                     userName={props.match.params.empName}
-                     employersArray={props.employersArray}
-                     vacancy={props.vacancy}/>
-    </div>)
-}
-
-  let stateGo = (state) => {
-    return {
-        employersArray: state.empTree.employersArray,// out array with emp
-        vacancy: state.empTree.vacancy
+      } else setDirect("");
+      const noDirectEmployers = initJSX([
+        "Anton",
+        "Vitalya",
+        "Andrew",
+        "Oleg"
+      ]);
+      setNoDirect(noDirectEmployers);
+    } else {
+      dispatch(setEmpSaga(match.params.empName));
     }
   };
 
-export default withRouter(connect(stateGo, {})(InformationContainer));
+  useEffect(() => {
+    initiaLizeEmployers();
+  }, [employersArray]);
+
+  return (
+    <Information
+      directEmployers={direct}
+      noDirectEmployers={noDirect}
+      userName={match.params.empName}
+      vacancy={vacancy}
+    />
+  );
+};
+
+const mapStateToProps = (state) => {
+  return {
+    employersArray: state.empTree.employersArray, 
+    vacancy: state.empTree.vacancy,
+  };
+};
+
+export default withRouter(connect(mapStateToProps, {})(InformationContainer));
