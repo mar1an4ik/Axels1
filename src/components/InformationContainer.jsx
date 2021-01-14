@@ -35,7 +35,7 @@ const InformationContainer = ({match,employersArray,vacancy}) => {
 
   const initiaLizeEmployers = () => {
     if (employersArray.length >= 1) {
-      if (employersArray[0] != "") {
+      if (employersArray[0] !== "") {
         const directEmployers = initJSX(employersArray);
         setDirect(directEmployers);
       } else setDirect("");
