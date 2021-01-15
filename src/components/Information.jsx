@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row } from "react-bootstrap";
 
 import { Content, StAlert } from "./../styled/Information/InformationStyle";
+
 const Information = ({userName,vacancy,directEmployers,noDirectEmployers}) =>(
    <Content>
      <StAlert variant={"secondary "}>
