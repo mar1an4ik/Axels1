@@ -7,7 +7,9 @@ import { useDispatch } from "react-redux";
 import { Information } from "./../components";
 
 import { setEmpSaga } from "../redux/reducers/EmpReducer";
+import { StCard } from "../styled/Information/InformationStyle"
 import profileLogo from "./../images/profile.png"
+
 
 
 const InformationContainer = ({match,employersArray,vacancy}) => {
@@ -19,15 +21,15 @@ const InformationContainer = ({match,employersArray,vacancy}) => {
       employersArray.map((person) => {
         return (
           <Col>
-            <Card style={{ width: "200px" }}>
-              <img src={profileLogo} width={"200px"} alt={"profileLogo"} />
+            <StCard>
+              <img src={profileLogo} width={"200px"} height={"200px"} alt={"profileLogo"} />
               <Card.Body>
                 <Card.Title>{person}</Card.Title>
                 <Card.Text>
-                  Hello,my name is {person} and I work on {userName}
+                  Hello, my name is {person} and I work for {userName}
                 </Card.Text>
               </Card.Body>
-            </Card>
+            </StCard>
           </Col>
         );
       })

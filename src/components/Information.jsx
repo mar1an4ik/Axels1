@@ -1,37 +1,42 @@
 import React from "react";
-import { Container, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 
-import { Content, StAlert } from "./../styled/Information/InformationStyle";
+import { StContent, StAlert, StContainer } from "./../styled/Information/InformationStyle";
 
 const Information = ({userName,vacancy,directEmployers,noDirectEmployers}) =>(
-   <Content>
+   <StContent>
      <StAlert variant={"secondary "}>
       <h2>Information about {userName}</h2>
       <h3>Position: {vacancy}</h3>
-      <h4>Direct subordinates:</h4>
      </StAlert>
 
-     {directEmployers.length >= 1 ? (
-       <Container>
-        <Row>{directEmployers}</Row>
-      </Container>
+     <StAlert variant={"secondary "}>
+       <h4>Direct subordinates:</h4>
+     </StAlert>
+
+     { directEmployers.length >= 1 ? (
+       <StContainer>
+         <Row>
+           {directEmployers}
+         </Row>
+       </StContainer>
      ) : (
       <h1>No users</h1>
      )}
      
      <StAlert variant={"secondary "}>
-      <h4>noDirect subordinates:</h4>
+      <h4>Indirect subordinates:</h4>
      </StAlert>
 
-     {noDirectEmployers.length >= 1 ? (
-       <Container>
+     { noDirectEmployers.length >= 1 ? (
+       <StContainer>
          <Row>{noDirectEmployers}</Row>
-       </Container>
+       </StContainer>
       ) : (
           <h1>No users</h1>
       )}
      
-      </Content>
+      </StContent>
 );
 
 

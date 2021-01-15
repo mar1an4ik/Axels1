@@ -13,8 +13,10 @@ const MainPage = ({users,error,findClicked}) => {
   return (
     <Container>
       <Styles>
+        <div>        
+          <UlStyled>{users}</UlStyled>
+        </div>
 
-        <UlStyled>{users}</UlStyled>
         <Alert variant={"dark"}>
           <div>
             <h2>Enter Employee name: </h2>
