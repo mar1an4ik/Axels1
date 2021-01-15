@@ -1,3 +1,5 @@
+import { EmpActionTypes } from "./../../typescript/types"
+
 export const setEmpSagaType = `setEmpSaga`;
 export const setEmp = `setEmp`;
 
@@ -8,19 +10,21 @@ const initialState = {
     error: "",
 };
 
-const EmpReducer = (state = initialState, action) => {
+
+
+const EmpReducer = (state = initialState, action:EmpActionTypes) => {
     switch (action.type) {
         case "setEmp": {
             const statecopy = {
                 ...state
             };
-
+          
             statecopy.employersArray = [...state.employersArray]
             statecopy.vacancy = action.employersArray[0];
             statecopy.userName = action.userName
             if (action.employersArray[1] && action.employersArray[1]["direct-subordinates"]) {
                 statecopy.employersArray = action.employersArray[1]["direct-subordinates"];
-                statecopy.error = action.employersArray[1]["error"];
+                statecopy.error = action.error;
             } else {
                 statecopy.error = "";
                 statecopy.employersArray = [""];
@@ -33,7 +37,7 @@ const EmpReducer = (state = initialState, action) => {
     }
 };
 
-export const setEmpAC = (employersArray, userName, error) => {
+export const setEmpAC = (employersArray, userName, error):EmpActionTypes => {
     return {
         type: setEmp,
         employersArray: employersArray,
