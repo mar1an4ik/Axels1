@@ -1,9 +1,9 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import createSagaMiddleware from "redux-saga";
 
-import { EmpReducer ,UsersReducer } from './reducers'
+import { EmpReducer, UsersReducer } from '../reducers'
 
-import { rootWatcher } from "./saga/index";
+import { rootWatcher } from "../saga/index";
 
     let reducers = combineReducers({
         empTree: EmpReducer,

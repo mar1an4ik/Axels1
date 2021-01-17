@@ -1,13 +1,12 @@
-export const setUsersSagaType = `setUsersSaga`;
-export const setUsers = `setUsers`;
+import { actionIds } from "./../../typescript/types"
 
 const initialState = {
     users: [], 
 };
 
-const UsersReducer = (state = initialState, action) => {
+const UsersReducer = (state = initialState, action:any) => {
     switch (action.type) {
-         case "setUsers": {
+         case "SET_USERS": {
             const statecopy = {
                 ...state
             };
@@ -21,16 +20,16 @@ const UsersReducer = (state = initialState, action) => {
     }
 };
 
-export const setUsersAC = (users) => {
+export const setUsersAC = (users:any) => {
     return {
-        type: setUsers,
+        type: actionIds.SET_USERS,
         users:users,
     }
 }
 
 export const setUsersSaga = () => {
     return {
-        type: setUsersSagaType,
+        type: actionIds.SET_USERS_SAGA,
     }
 }
 

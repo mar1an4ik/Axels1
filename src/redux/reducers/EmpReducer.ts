@@ -1,20 +1,21 @@
-import { EmpActionTypes } from "./../../typescript/types"
 
-export const setEmpSagaType = `setEmpSaga`;
-export const setEmp = `setEmp`;
+import { employersArrayType, EmpActionTypes } from "./../actions/employers/employersAC.d"
+
+
+ export const SET_EMP_SAGA = `SET_EMP_SAGA`;
 
 const initialState = {
-    vacancy: "",
-    employersArray: [],
-    userName: "",
-    error: "",
+    vacancy: "" as string,
+    employersArray: [] as typeof employersArrayType | Array<string>, 
+    userName: "" as string,
+    error: "" as string,
 };
+export type InitialStateType = typeof initialState;
 
 
-
-const EmpReducer = (state = initialState, action:EmpActionTypes) => {
+const EmpReducer = (state = initialState, action: EmpActionTypes):InitialStateType => {
     switch (action.type) {
-        case "setEmp": {
+        case "SET_EMP": {
             const statecopy = {
                 ...state
             };
@@ -37,22 +38,13 @@ const EmpReducer = (state = initialState, action:EmpActionTypes) => {
     }
 };
 
-export const setEmpAC = (employersArray, userName, error):EmpActionTypes => {
-    return {
-        type: setEmp,
-        employersArray: employersArray,
-        userName: userName,
-        error: error,
 
-    }
-}
-
-export const setEmpSaga = (userName, error) => {
+export const setEmpSaga = (userName : string, error : string) => {
     return {
-        type: setEmpSagaType,
+        type: SET_EMP_SAGA,
         userName: userName,
         error: error,
     }
-}
+} // треба винести кудась
 
 export default EmpReducer;

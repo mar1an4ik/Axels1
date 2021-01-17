@@ -1,16 +1,13 @@
-export const setEmp = `setEmp`;
+export const actionIds = {
+  SET_USERS_SAGA: `SET_USERS_SAGA`,
+  SET_USERS: `SET_USERS`,
+};
 
-export interface ObjDirect {
-  "direct-subordinates": [];
-  "error": string;
+
+
+
+interface setUsersAC {
+  type: typeof actionIds.SET_USERS,
+  users: Array<String>
+
 }
-
-
-interface setEmpAC {
-  type: typeof setEmp
-  employersArray: [string,ObjDirect],
-  userName: string,
-  error: string,
-}
-
-export type EmpActionTypes =  setEmpAC
