@@ -1,38 +1,43 @@
 import React from "react";
-import { CardColumns, Alert,Container,Row,Col } from "react-bootstrap";
-import {Content} from "./../styled/Information/InformationStyle"
-const Information = (props) => {
-  return (
-    <Content>
-      <Alert variant={"secondary "}>
-        <h1> Information about {props.userName}</h1>
-        <h3>Posistion: {props.vacancy}</h3>
-        <h3>Direct subordinates:</h3>
-      </Alert>
-      <CardColumns>
-        {props.directEmployers.length >= 1 ? (
-          <Container>
-            <Row>{props.directEmployers}</Row>
-          </Container>
-        ) : (
-          <h1>No users</h1>
-        )}
-      </CardColumns>
+import { Row } from "react-bootstrap";
 
-      <Alert variant={"secondary "}>
-        <h3>noDirect subordinates:</h3>
-      </Alert>
-      <CardColumns>
-        {props.noDirectEmployers.length >= 1 ? (
-          <Container>
-            <Row>{props.noDirectEmployers}</Row>
-          </Container>
-        ) : (
+import { StContent, StAlert, StContainer } from "./../styled/Information/InformationStyle";
+
+const Information = ({userName,vacancy,directEmployers,noDirectEmployers}) =>(
+   <StContent>
+     <StAlert variant={"secondary "}>
+      <h2>Information about {userName}</h2>
+      <h3>Position: {vacancy}</h3>
+     </StAlert>
+
+     <StAlert variant={"secondary "}>
+       <h4>Direct subordinates:</h4>
+     </StAlert>
+
+     { directEmployers.length >= 1 ? (
+       <StContainer>
+         <Row>
+           {directEmployers}
+         </Row>
+       </StContainer>
+     ) : (
+      <h1>No users</h1>
+     )}
+     
+     <StAlert variant={"secondary "}>
+      <h4>Indirect subordinates:</h4>
+     </StAlert>
+
+     { noDirectEmployers.length >= 1 ? (
+       <StContainer>
+         <Row>{noDirectEmployers}</Row>
+       </StContainer>
+      ) : (
           <h1>No users</h1>
-        )}
-      </CardColumns>
-    </Content>
-  );
-};
+      )}
+     
+      </StContent>
+);
+
 
 export default Information;

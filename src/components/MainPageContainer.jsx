@@ -1,41 +1,59 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setEmpSaga } from "../redux/EmpReducer";
 import { connect } from "react-redux";
-import MainPage from "./MainPage";
 
-const MainPageContainer = (props) => {
+import { MainPage } from "./../components";
+
+import { setEmpSaga } from "../redux/reducers/EmpReducer";
+import { setUsersSaga } from "../redux/reducers/UsersReducer";
+
+const MainPageContainer = ({users,userName,employersArray,error,history}) => {
   const dispatch = useDispatch();
   const [rendered, setRendered] = useState(false);
 
-  let findClicked = (value) => {
-    dispatch(setEmpSaga(value));
+  const usersJSX = users.map((person) => {
+    return <li>{person}</li>;
+  });
+
+  const findClicked = (value) => {
+    if (value) dispatch(setEmpSaga(value));
   };
 
-  let changeUrl = () => {
-    if (rendered && props.employersArray.length >= 1) {
-      props.history.push(`/overview/` + props.userName);
+  const changeUrl = () => {
+    if (rendered && employersArray.length >= 1) {
+      history.push(`/overview/` + userName);
       setRendered(false);
-    } else setRendered(true);
+    } else {
+      setRendered(true);
+    }
   };
 
   useEffect(() => {
     changeUrl();
-  }, [props.employersArray]);
+  }, [employersArray]);
+  useEffect(() => {
+    dispatch(setUsersSaga());
+  }, []);
 
   return (
     <div>
-      <MainPage findClicked={findClicked} />
+      <MainPage
+        users={usersJSX}
+        error={error}
+        findClicked={findClicked}
+      />
     </div>
   );
 };
 
-let stateGo = (state) => {
+const mapStateToProps = (state) => {
   return {
-    employersArray: state.empTree.employersArray, // out array with emp
+    employersArray: state.empTree.employersArray, 
     userName: state.empTree.userName,
+    error: state.empTree.error,
+    users: state.usersTree.users,
   };
 };
 
-export default connect(stateGo, {})(MainPageContainer);
+export default connect(mapStateToProps, {})(MainPageContainer);

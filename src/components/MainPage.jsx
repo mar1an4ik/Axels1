@@ -1,24 +1,38 @@
 import React from "react";
-import { Alert, Button, InputGroup, FormControl } from "react-bootstrap";
-import {Styles,Container} from "./../styled/MainPage/MainPageStyle"
-import styled from "styled-components";
-import img from "./../images/main.jpg"
+import { Alert, Button } from "react-bootstrap";
 
-const MainPage = (props) => {
-  let refInput = React.createRef();
+import { Styles, Container, UlStyled } from "./../styled/MainPage/MainPageStyle";
 
+const MainPage = ({users,error,findClicked}) => {
+  const refInput = React.createRef();
 
-  let handleClick = () => {
-    props.findClicked(refInput.current.value);
+  const handleClick = () => {
+      findClicked(refInput.current.value);
   };
 
-  return (<Container>
+  return (
+    <Container>
       <Styles>
-        <Alert variant={"dark  "}>
-          <h2>Enter Employee name: </h2>
-          <input type={"text"} ref={refInput} placeholder={"Name"}></input>
-                 <Button variant="dark  "size="lg" className={"butFind"} onClick={handleClick}> Find </Button>
+        <div>        
+          <UlStyled>{users}</UlStyled>
+        </div>
+
+        <Alert variant={"dark"}>
+          <div>
+            <h2>Enter Employee name: </h2>
+            {error ? (
+              <label>This user is not working in our company</label>
+            ) : null}
+          </div>
+          <input type={"text"} ref={refInput} placeholder={"Name"}/>
+          <Button
+            variant="dark"
+            size="lg"
+            className={"butFind"}
+            onClick={handleClick}>Filter
+          </Button>
         </Alert>
+
       </Styles>
     </Container>
   );
